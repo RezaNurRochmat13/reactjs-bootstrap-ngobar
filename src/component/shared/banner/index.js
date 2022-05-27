@@ -1,4 +1,9 @@
+import React, {useEffect} from 'react';
+
+const rafiWakilKetua = [];
+
 const Banner = () => {
+
     return (
         <div>
             {/* <!-- Navigation Bar --> */}
