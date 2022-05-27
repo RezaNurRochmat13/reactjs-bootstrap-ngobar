@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Banner from "../../shared/banner";
 import axios from 'axios';
+import moment from 'moment';
 
 const RentCar = () => {
     const [cars, setCars] = useState([]);
@@ -49,12 +50,16 @@ const RentCar = () => {
     }
 
     const doFilterCars = () => {
-        console.info("CURRENT CAR : ", cars.length);
-        console.info("FILTERED BY PENUMPANG : ", cars.filter((item) => item.capacity === filterCar.penumpang));
-        console.info("STATE FILTERS : ", filterCar);
-        const filteredCarsData = cars.filter((item) => item.capacity === filterCar.penumpang);
+        const filteredCarsData = cars.filter((item) => item.capacity === filterCar.penumpang && moment(item.availableAt).format("L") == moment(filterCar.tanggal).format("L"));
+
+        console.info(filteredCarsData);
 
         setCars(filteredCarsData);
+
+        cars.forEach(val => {
+            console.info("PARSED DATE ITEM : ", moment(val.availableAt).format("L"));
+            console.info("PARSED DATE FILTER PARAM : ", moment(filterCar.tanggal).format("L"));
+        })
     }
 
     return (
